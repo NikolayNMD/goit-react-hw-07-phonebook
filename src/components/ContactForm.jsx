@@ -2,8 +2,9 @@ import { useState } from 'react';
 import styled from 'styled-components';
 // import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
-import { addContact, getPhoneBookValue } from '../redux/phoneBookSlice';
+import { getPhoneBookValue } from '../redux/phoneBookSlice';
 import Notiflix from 'notiflix';
+import { postContact } from 'services/contactsApi';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
@@ -40,7 +41,7 @@ export const ContactForm = () => {
       return;
     }
 
-    dispatch(addContact(newContact));
+    dispatch(postContact(newContact));
     Notiflix.Notify.success(`${newContact.name} succesfully added!`);
 
     setName('');
