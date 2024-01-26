@@ -1,5 +1,9 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { getPhoneBookValue } from '../redux/phoneBookSlice';
+import {
+  getError,
+  getIsLoading,
+  getPhoneBookValue,
+} from '../redux/phoneBookSlice';
 import { styled } from 'styled-components';
 import { getFilter } from '../redux/filterSlice';
 import Notiflix from 'notiflix';
@@ -15,6 +19,8 @@ export const ContactList = () => {
 
   const contacts = useSelector(getPhoneBookValue);
   const filter = useSelector(getFilter);
+  const isLoading = useSelector(getIsLoading);
+  const error = useSelector(getError);
 
   const getFilteredContacts = () => {
     return contacts.filter(contact =>
@@ -31,6 +37,9 @@ export const ContactList = () => {
 
   return (
     <List>
+      {isLoading && <p>Loading...</p>}
+
+      {error && <p>{error}</p>}
       {filteredContacts.map(contact => (
         <Item key={contact.id}>
           {contact.name}: {contact.phone}
