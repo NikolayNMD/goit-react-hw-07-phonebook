@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import styled from 'styled-components';
-import { nanoid } from 'nanoid';
+// import { nanoid } from 'nanoid';
 import { useDispatch, useSelector } from 'react-redux';
 import { addContact, getPhoneBookValue } from '../redux/phoneBookSlice';
 import Notiflix from 'notiflix';
@@ -29,8 +29,8 @@ export const ContactForm = () => {
 
   const handleSubmit = event => {
     event.preventDefault();
-    const id = nanoid();
-    const newContact = { id, name, number };
+    // const id = nanoid();
+    const newContact = { name, number };
     const existingContact = contacts.find(
       contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
