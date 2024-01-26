@@ -8,7 +8,7 @@ import { postContact } from 'services/contactsApi';
 
 export const ContactForm = () => {
   const [name, setName] = useState('');
-  const [number, setNumber] = useState('');
+  const [phone, setNumber] = useState('');
   const dispatch = useDispatch();
   const contacts = useSelector(getPhoneBookValue);
 
@@ -31,7 +31,7 @@ export const ContactForm = () => {
   const handleSubmit = event => {
     event.preventDefault();
     // const id = nanoid();
-    const newContact = { name, number };
+    const newContact = { name, phone };
     const existingContact = contacts.find(
       contact => contact.name.toLowerCase() === newContact.name.toLowerCase()
     );
@@ -65,11 +65,11 @@ export const ContactForm = () => {
           placeholder="Enter phone number"
           type="tel"
           name="number"
-          value={number}
+          value={phone}
           onChange={handleChange}
           required
         />
-        <Button type="submit" disabled={!(name && number)}>
+        <Button type="submit" disabled={!(name && phone)}>
           Add contact
         </Button>
       </Label>

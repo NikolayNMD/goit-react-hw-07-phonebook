@@ -26,7 +26,6 @@ export const phoneBookSlice = createSlice({
   initialState: contactInitialState,
   extraReducers: builder => {
     builder
-      .addMatcher(isAnyOf(...addStatusToActs('pending')), onPending)
       .addCase(getContacts.fulfilled, (state, { payload }) => {
         state.isLoading = false;
         state.contacts = payload;
@@ -44,6 +43,7 @@ export const phoneBookSlice = createSlice({
         );
         state.error = null;
       })
+      .addMatcher(isAnyOf(...addStatusToActs('pending')), onPending)
       .addMatcher(isAnyOf(...addStatusToActs('rejected')), onRejected);
   },
 });

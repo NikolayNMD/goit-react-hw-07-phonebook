@@ -1,11 +1,17 @@
 import { useDispatch, useSelector } from 'react-redux';
-import { deleteContact, getPhoneBookValue } from '../redux/phoneBookSlice';
+import { getPhoneBookValue } from '../redux/phoneBookSlice';
 import { styled } from 'styled-components';
 import { getFilter } from '../redux/filterSlice';
 import Notiflix from 'notiflix';
+import { getContacts, delContact } from 'services/contactsApi';
+import { useEffect } from 'react';
 
-export const ContactList = ({ onDeleteContact }) => {
+export const ContactList = () => {
   const dispatch = useDispatch();
+
+  useEffect(() => {
+    dispatch(getContacts());
+  }, [dispatch]);
 
   const contacts = useSelector(getPhoneBookValue);
   const filter = useSelector(getFilter);
@@ -19,7 +25,7 @@ export const ContactList = ({ onDeleteContact }) => {
   const filteredContacts = getFilteredContacts();
 
   const handleDeleteContact = contactId => {
-    dispatch(deleteContact(contactId));
+    dispatch(delContact(contactId));
     Notiflix.Notify.failure('Contact succesfully deleted!');
   };
 
@@ -27,7 +33,7 @@ export const ContactList = ({ onDeleteContact }) => {
     <List>
       {filteredContacts.map(contact => (
         <Item key={contact.id}>
-          {contact.name}: {contact.number}
+          {contact.name}: {contact.phone}
           <Buton onClick={() => handleDeleteContact(contact.id)} type="button">
             Delete
           </Buton>
